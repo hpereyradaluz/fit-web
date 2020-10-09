@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useParams,
-} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import {
   Navbar,
   Nav,
@@ -13,9 +8,9 @@ import {
   FormControl,
   Button,
 } from 'react-bootstrap'
-import Gyms from './Gyms'
-import Affiliates from './Affiliates'
-import MapView from './MapView'
+import Gyms from './GymsPage'
+import Affiliates from './AffiliatesPage'
+import MapPage from './MapPage'
 import Gym from './components/Gym'
 import Affiliate from './components/Affiliate'
 
@@ -70,7 +65,7 @@ class BootstrapNavbar extends React.Component {
                   <Affiliates />
                 </Route>
                 <Route path="/map">
-                  <MapView />
+                  <MapPage />
                 </Route>
                 <Route path="/gym/:id" component={Gym} />
                 <Route path="/affiliate/:id" component={Affiliate} />
