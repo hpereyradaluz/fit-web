@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const Gym = (props) => {
   const initialGymState = {
-    id: null,
+    _id: null,
     name: '',
     location: '',
     kind: '',
@@ -16,6 +16,7 @@ const Gym = (props) => {
     GymDataService.get(id)
       .then((response) => {
         setCurrentGym(response.data)
+        console.log(response.data.location.coordinates[1])
         console.log(response.data)
       })
       .catch((e) => {
@@ -57,38 +58,85 @@ const Gym = (props) => {
   return (
     <div>
       {currentGym ? (
-        <div className="edit-form">
-          <h4>Gym</h4>
-          <form>
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                className="form-control"
-                id="name"
-                name="name"
-                value={currentGym.name}
-                onChange={handleInputChange}
-              />
+        <div className="container">
+          <div class="abs-center">
+            <h4>Gym</h4>
+            <form>
+              <div className="form-group col-md-9">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  name="name"
+                  value={currentGym.name}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group col-md-9">
+                <label htmlFor="latitud">Latitude</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  id="latitud"
+                  required
+                  value={currentGym.latitude}
+                  onChange={handleInputChange}
+                  name="latitud"
+                />
+              </div>
+
+              <div className="form-group col-md-9">
+                <label htmlFor="longitud">Longitude</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  id="longitud"
+                  required
+                  value={currentGym.longitude}
+                  onChange={handleInputChange}
+                  name="longitud"
+                />
+              </div>
+
+              <div className="form-group col-md-9">
+                <label htmlFor="kind">Kind</label>
+                <select
+                  class="custom-select mr-sm-2"
+                  type="text"
+                  className="form-control"
+                  id="kind"
+                  required
+                  value={currentGym.kind.type}
+                  onChange={handleInputChange}
+                  name="kind"
+                >
+                  <option selected>Choose...</option>
+                  <option value="Normal">Normal</option>
+                  <option value="Open">Open</option>
+                </select>
+              </div>
+            </form>
+            <div className="container">
+              <div class="abs-center">
+                <Link to={'/'} className="btn btn-outline-primary">
+                  Back
+                </Link>
+                <button
+                  type="submit"
+                  className="btn btn-outline-warning"
+                  onClick={updateGym}
+                >
+                  Update
+                </button>
+
+                <button className="btn btn-outline-danger" onClick={deleteGym}>
+                  Delete
+                </button>
+              </div>
             </div>
-          </form>
-
-          <Link to={'/'} className="btn btn-outline-primary">
-            Back
-          </Link>
-          <button
-            type="submit"
-            className="btn btn-outline-warning"
-            onClick={updateGym}
-          >
-            Update
-          </button>
-
-          <button className="btn btn-outline-danger" onClick={deleteGym}>
-            Delete
-          </button>
-
-          <p>{message}</p>
+            <p>{message}</p>
+          </div>
         </div>
       ) : (
         <div>

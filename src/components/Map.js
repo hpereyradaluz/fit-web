@@ -6,9 +6,10 @@ class Map extends React.Component {
   constructor() {
     super()
     this.state = {
-      coordCenter: [37.885963680860755, -4.774589538574219],
+      //coordCenter: [37.885963680860755, -4.774589538574219],
+      coordCenter: [-34.8717779, -56.1674311],
       gymName: '',
-      zoom: 9,
+      zoom: 12,
     }
     this.gymChange = this.gymChange.bind(this)
   }
@@ -46,36 +47,6 @@ class Map extends React.Component {
               coordCenter={this.state.coordCenter}
               zoom={this.state.zoom}
             />
-          </div>
-        </div>
-        <div className="row m-3">
-          <div className="col">
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Type</th>
-                  <th>Name</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Type 1</td>
-                  <td>name 1</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Type 2</td>
-                  <td>name 2</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Type 1</td>
-                  <td>name 3</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
       </div>

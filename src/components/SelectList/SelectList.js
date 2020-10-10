@@ -30,7 +30,10 @@ class SelectList extends React.Component {
         <select className="form-control" onChange={this.selectListChange}>
           <option value="">Select a Gym</option>
           {data.map((m) => (
-            <option key={m._id} value={[m.location.coordinates, m.name]}>
+            <option
+              key={m._id}
+              value={[m.location.coordinates, m.name, m.code]}
+            >
               {m.name}
             </option>
           ))}

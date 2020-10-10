@@ -6,8 +6,8 @@ const Affiliate = (props) => {
   const initialAffiliateState = {
     id: null,
     name: '',
-    location: '',
-    kind: '',
+    lastname: '',
+    plan: '',
   }
   const [currentAffiliate, setCurrentAffiliate] = useState(
     initialAffiliateState
@@ -59,39 +59,76 @@ const Affiliate = (props) => {
   return (
     <div>
       {currentAffiliate ? (
-        <div className="edit-form">
-          <h4>Affiliate</h4>
-          <form>
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                className="form-control"
-                id="name"
-                name="name"
-                value={currentAffiliate.name}
-                onChange={handleInputChange}
-              />
+        <div className="container">
+          <div class="abs-center">
+            <h4>Affiliate</h4>
+            <form>
+              <div className="form-group col-md-9">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  name="name"
+                  value={currentAffiliate.name}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group col-md-9">
+                <label htmlFor="lastname">Last Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="lastname"
+                  required
+                  value={currentAffiliate.lastname}
+                  onChange={handleInputChange}
+                  name="lastname"
+                />
+              </div>
+
+              <div className="form-group col-md-9">
+                <label htmlFor="kind">Plan</label>
+                <select
+                  class="custom-select mr-sm-2"
+                  type="text"
+                  className="form-control"
+                  id="plan"
+                  required
+                  value={currentAffiliate.plan.type}
+                  onChange={handleInputChange}
+                  name="plan"
+                >
+                  <option selected>Choose...</option>
+                  <option value="Basic">Basic</option>
+                  <option value="Complete">Complete</option>
+                </select>
+              </div>
+            </form>
+            <div className="container">
+              <div class="abs-center">
+                <Link to={'/affiliates'} className="btn btn-outline-primary">
+                  Back
+                </Link>
+
+                <button
+                  type="submit"
+                  className="btn btn-outline-warning"
+                  onClick={updateAffiliate}
+                >
+                  Update
+                </button>
+
+                <button
+                  className="btn btn-outline-danger"
+                  onClick={deleteAffiliate}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
-          </form>
-
-          <Link to={'/affiliates'} className="btn btn-outline-primary">
-            Back
-          </Link>
-
-          <button
-            type="submit"
-            className="btn btn-outline-warning"
-            onClick={updateAffiliate}
-          >
-            Update
-          </button>
-
-          <button className="btn btn-outline-danger" onClick={deleteAffiliate}>
-            Delete
-          </button>
-
-          <p>{message}</p>
+            <p>{message}</p>
+          </div>
         </div>
       ) : (
         <div>
