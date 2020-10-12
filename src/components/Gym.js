@@ -16,7 +16,6 @@ const Gym = (props) => {
   const getGym = (id) => {
     GymDataService.get(id)
       .then((response) => {
-        console.log('getGym')
         console.log(response.data)
         var gym = {
           id: response.data._id,
@@ -25,8 +24,6 @@ const Gym = (props) => {
           longitude: response.data.location.coordinates[0],
           kind: response.data.kind.type,
         }
-        console.log('setGym')
-        console.log(gym)
         setCurrentGym(gym)
       })
       .catch((e) => {
@@ -44,8 +41,6 @@ const Gym = (props) => {
   }
 
   const updateGym = () => {
-    console.log('currentGym')
-    console.log(currentGym)
     var gym = {
       name: currentGym.name,
       location: {
@@ -59,8 +54,6 @@ const Gym = (props) => {
     }
     GymDataService.update(currentGym.id, gym)
       .then((response) => {
-        console.log('response')
-        console.log(response.data)
         setMessage('The gym was updated successfully!')
       })
       .catch((e) => {

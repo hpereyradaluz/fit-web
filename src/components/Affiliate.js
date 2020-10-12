@@ -17,7 +17,13 @@ const Affiliate = (props) => {
   const getAffiliate = (id) => {
     AffiliateDataService.get(id)
       .then((response) => {
-        setCurrentAffiliate(response.data)
+        var affiliate = {
+          id: response.data._id,
+          name: response.data.name,
+          lastname: response.data.lastname,
+          plan: response.data.plan.type,
+        }
+        setCurrentAffiliate(affiliate)
         console.log(response.data)
       })
       .catch((e) => {
@@ -35,7 +41,12 @@ const Affiliate = (props) => {
   }
 
   const updateAffiliate = () => {
-    AffiliateDataService.update(currentAffiliate._id, currentAffiliate)
+    var affiliate = {
+      name: currentAffiliate.name,
+      lastname: currentAffiliate.lastname,
+      plan: { type: currentAffiliate.plan },
+    }
+    AffiliateDataService.update(currentAffiliate.id, affiliate)
       .then((response) => {
         console.log(response.data)
         setMessage('The affiliate was updated successfully!')
@@ -46,10 +57,10 @@ const Affiliate = (props) => {
   }
 
   const deleteAffiliate = () => {
-    AffiliateDataService.remove(currentAffiliate._id)
+    AffiliateDataService.remove(currentAffiliate.id)
       .then((response) => {
         console.log(response.data)
-        props.history.push('/')
+        props.history.push('/affiliates')
       })
       .catch((e) => {
         console.log(e)
@@ -95,7 +106,7 @@ const Affiliate = (props) => {
                   className="form-control"
                   id="plan"
                   required
-                  value={currentAffiliate.plan.type}
+                  value={currentAffiliate.plan}
                   onChange={handleInputChange}
                   name="plan"
                 >
