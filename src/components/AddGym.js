@@ -21,7 +21,7 @@ const AddGym = () => {
       name: gym.name,
       location: {
         type: 'Point',
-        coordinates: [parseInt(gym.longitud), parseInt(gym.latitud)],
+        coordinates: [parseFloat(gym.longitud), parseFloat(gym.latitud)],
       },
       kind: { type: gym.kind },
     }

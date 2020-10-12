@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom'
 
 const Gym = (props) => {
   const initialGymState = {
-    _id: null,
+    id: null,
     name: '',
-    location: '',
+    latitude: '',
+    longitude: '',
     kind: '',
   }
   const [currentGym, setCurrentGym] = useState(initialGymState)
@@ -15,9 +16,18 @@ const Gym = (props) => {
   const getGym = (id) => {
     GymDataService.get(id)
       .then((response) => {
-        setCurrentGym(response.data)
-        console.log(response.data.location.coordinates[1])
+        console.log('getGym')
         console.log(response.data)
+        var gym = {
+          id: response.data._id,
+          name: response.data.name,
+          latitude: response.data.location.coordinates[1],
+          longitude: response.data.location.coordinates[0],
+          kind: response.data.kind.type,
+        }
+        console.log('setGym')
+        console.log(gym)
+        setCurrentGym(gym)
       })
       .catch((e) => {
         console.log(e)
@@ -34,8 +44,22 @@ const Gym = (props) => {
   }
 
   const updateGym = () => {
-    GymDataService.update(currentGym._id, currentGym)
+    console.log('currentGym')
+    console.log(currentGym)
+    var gym = {
+      name: currentGym.name,
+      location: {
+        type: 'Point',
+        coordinates: [
+          parseFloat(currentGym.longitude),
+          parseFloat(currentGym.latitude),
+        ],
+      },
+      kind: { type: currentGym.kind },
+    }
+    GymDataService.update(currentGym.id, gym)
       .then((response) => {
+        console.log('response')
         console.log(response.data)
         setMessage('The gym was updated successfully!')
       })
@@ -45,7 +69,7 @@ const Gym = (props) => {
   }
 
   const deleteGym = () => {
-    GymDataService.remove(currentGym._id)
+    GymDataService.remove(currentGym.id)
       .then((response) => {
         console.log(response.data)
         props.history.push('/')
@@ -74,28 +98,28 @@ const Gym = (props) => {
                 />
               </div>
               <div className="form-group col-md-9">
-                <label htmlFor="latitud">Latitude</label>
+                <label htmlFor="latitude">Latitude</label>
                 <input
                   type="number"
                   className="form-control"
-                  id="latitud"
+                  id="latitude"
                   required
                   value={currentGym.latitude}
                   onChange={handleInputChange}
-                  name="latitud"
+                  name="latitude"
                 />
               </div>
 
               <div className="form-group col-md-9">
-                <label htmlFor="longitud">Longitude</label>
+                <label htmlFor="longitude">Longitude</label>
                 <input
                   type="number"
                   className="form-control"
-                  id="longitud"
+                  id="longitude"
                   required
                   value={currentGym.longitude}
                   onChange={handleInputChange}
-                  name="longitud"
+                  name="longitude"
                 />
               </div>
 
@@ -107,7 +131,7 @@ const Gym = (props) => {
                   className="form-control"
                   id="kind"
                   required
-                  value={currentGym.kind.type}
+                  value={currentGym.kind}
                   onChange={handleInputChange}
                   name="kind"
                 >
