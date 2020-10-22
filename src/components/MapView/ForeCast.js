@@ -12,11 +12,12 @@ export default class Forecast extends Component {
     console.log(this.props.lon)
     AccuWeatherService.getPositionSearch(this.props.lat, this.props.lon).then(
       (response) => {
+        const key = response.data.Key
         const positionData = response.data
         console.log(positionData)
         this.setState({ positionData })
 
-        AccuWeatherService.getTwelveHsOfHourlyForecasts(349269).then(
+        AccuWeatherService.getTwelveHsOfHourlyForecasts(key).then(
           (response) => {
             const forecast = response.data
             console.log(forecast)
